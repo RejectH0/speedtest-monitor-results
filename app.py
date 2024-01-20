@@ -38,10 +38,7 @@ def get_databases():
         print(f"Error fetching database list: {e}")
         return []
 
-def fetch_data(db_name):
-    start = request.args.get('start')
-    end = request.args.get('end')
-
+def fetch_data(db_name, start=None, end=None):
     query = "SELECT timestamp, (download / 1024 / 1024) AS download_mbps, (upload / 1024 / 1024) AS upload_mbps FROM speedtest_results"
 
     if start and end:
@@ -119,24 +116,31 @@ latest_plots = []
 
 def update_plots():
     while True:
+        start = end = None  # Placeholder for filtering, adjust as needed
         new_plots = []
         dbs = get_databases()
         for db in dbs:
-            data = fetch_data(db)
+            data = fetch_data(db, start, end)
             if data is not None and not data.empty:
                 filename = plot_data(data, db)
                 if filename:
                     new_plots.append({'filename': filename, 'caption': f"{db} plot"})
         global latest_plots
         latest_plots = new_plots
-        time.sleep(300)
+        time.sleep(300)  # Update interval in seconds
 
 plot_thread = threading.Thread(target=update_plots)
 plot_thread.daemon = True
 plot_thread.start()
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
+    start = request.args.get('start')
+    end = request.args.get('end')
+    
+    # Call update_plots with the filtering parameters
+    update_plots(start, end)
+
     return render_template('index.html', plots=latest_plots)
 
 if __name__ == '__main__':
