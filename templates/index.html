@@ -21,7 +21,21 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container my-5">
+    <!-- Date and Time Filter Form -->
+    <form action="/" method="get" class="mb-4">
+      <div class="form-group">
+        <label for="startDateTime">Start Date and Time:</label>
+        <input type="datetime-local" class="form-control" id="startDateTime" name="start" required>
+      </div>
+      <div class="form-group">
+        <label for="endDateTime">End Date and Time:</label>
+        <input type="datetime-local" class="form-control" id="endDateTime" name="end" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Plot Display -->
     <div class="row">
       {% for plot in plots %}
         <div class="col-lg-6 mb-4">

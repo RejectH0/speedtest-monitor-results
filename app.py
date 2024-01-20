@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import threading
 import time
 import pymysql
@@ -39,11 +39,21 @@ def get_databases():
         return []
 
 def fetch_data(db_name):
+    start = request.args.get('start')
+    end = request.args.get('end')
+
+    query = "SELECT timestamp, (download / 1024 / 1024) AS download_mbps, (upload / 1024 / 1024) AS upload_mbps FROM speedtest_results"
+
+    if start and end:
+        query += " WHERE timestamp BETWEEN %s AND %s"
+
     try:
         conn = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, passwd=DB_PASS, db=db_name)
         cursor = conn.cursor()
-        query = "SELECT timestamp, (download / 1024 / 1024) AS download_mbps, (upload / 1024 / 1024) AS upload_mbps FROM speedtest_results"
-        cursor.execute(query)
+        if start and end:
+            cursor.execute(query, (start, end))
+        else:
+            cursor.execute(query)
         data = pd.DataFrame(cursor.fetchall(), columns=['timestamp', 'download_mbps', 'upload_mbps'])
         cursor.close()
         conn.close()
