@@ -1,13 +1,1 @@
-[Unit]
-Description=Speedtest Monitor Flask App
-After=network.target
-
-[Service]
-User=root
-Group=root
-WorkingDirectory=/usr/local/speedtest-monitor-results
-Environment="PATH=/usr/local/speedtest-monitor-results/bin"
-ExecStart=/usr/local/speedtest-monitor-results/bin/flask run --host=0.0.0.0 --port=8080
-
-[Install]
-WantedBy=multi-user.target
+/etc/systemd/system/speedtest_monitor.service
