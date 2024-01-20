@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="300"> <!-- Auto-refresh every 300 seconds -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speedtest Monitor Results</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .plot-image {
+      width: 100%; /* Adjust the width as needed */
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-light py-3 mb-4">
+    <div class="container text-center">
+      <h1 class="font-weight-normal">Speedtest Monitor Results</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="row">
+      {% for plot in plots %}
+        <div class="col-lg-6 mb-4">
+          <div class="card">
+            <a href="{{ url_for('static', filename='images/' ~ plot.filename) }}" target="_blank">
+              <img src="{{ url_for('static', filename='images/' ~ plot.filename) }}" class="card-img-top plot-image" alt="{{ plot.caption }}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{ plot.caption }}</h5>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+
+  <footer class="bg-light py-3 mt-4">
+    <div class="container text-center">
+      <p>© 2024 Speedtest Monitor. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
