@@ -1,5 +1,8 @@
 #!/bin/bash
-
+#
+# This script is used to prune the files that are generated from the plots of each speedtest collector.
+# Version 1.0 - 20240124-1930 GS
+#
 # Function to extract timestamp from file name
 extract_timestamp() {
     local file=$1
