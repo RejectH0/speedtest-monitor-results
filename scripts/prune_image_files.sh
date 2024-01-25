@@ -24,7 +24,7 @@ delete_old_files() {
         echo "Checking file: $file"
 
         # Extract the timestamp from the filename
-        local file_timestamp=$(echo "$file" | grep -oP '(?<=speedtest-)\d{12}' | head -n 1)
+        local file_timestamp=$(echo "$file" | grep -oP '(?<=speedtest[-_])\d{14}' | head -n 1)
         if [ -z "$file_timestamp" ]; then
             echo "Skipping file (no timestamp found): $file"
             continue
@@ -51,8 +51,9 @@ main() {
     # Directory where the files are located
     local directory="/usr/local/speedtest-monitor-results/static/images"
 
-    # Pattern of the files to be deleted (adjusted for exact matching)
-    local pattern="*-speedtest-[0-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9][0-5][0-9][0-5][0-9].png"
+    # Pattern of the files to be deleted
+    # Accounts for both underscore and hyphen variations
+    local pattern="*speedtest[-_][0-9]{14}.png"
 
     # Age in minutes for file deletion (12 hours)
     local age_minutes=720
