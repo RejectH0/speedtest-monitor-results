@@ -1,6 +1,6 @@
 ###################################################################
 #
-# Version 1.31 - 20240124-2357
+# Version 1.32 - 20240125-0010
 # This app.py Flask Python application is the monitoring and reporting portion of the speedtest logging utilities
 # Created and maintain by RejectH0. Hotel Coral Essex.
 #
@@ -143,29 +143,36 @@ def plot_data(data, db_name):
         return None
 
 
+def update_plots_once():
+    with plot_params_lock:
+        start = plot_params['start']
+        end = plot_params['end']
+
+    new_plots = []
+    dbs = get_databases()
+    for db in dbs:
+        if not is_host_enabled(db):
+            logging.error(f"Host {db} is currently disabled. Skipping.")
+            continue
+        data = fetch_data(db, start, end)
+        if data is not None and not data.empty:
+            filename = plot_data(data, db)
+            if filename:
+                new_plots.append({'filename': filename, 'caption': f"{db} plot"})
+
+    with latest_plots_lock:
+        global latest_plots
+        latest_plots = new_plots
+
 def update_plots():
     while True:
-        with plot_params_lock:
-            start = plot_params['start']
-            end = plot_params['end']
-
-        new_plots = []
-        dbs = get_databases()
-        for db in dbs:
-            if not is_host_enabled(db):
-                logging.error(f"Host {db} is currently disabled. Skipping.")
-                continue
-            data = fetch_data(db, start, end)
-            if data is not None and not data.empty:
-                filename = plot_data(data, db)
-                if filename:
-                    new_plots.append({'filename': filename, 'caption': f"{db} plot"})
-
-        with latest_plots_lock:
-            global latest_plots
-            latest_plots = new_plots
-
+        update_plots_once()
         time.sleep(300)
+
+@app.route('/trigger_update', methods=['GET'])
+def trigger_update():
+    update_plots_once()
+    return 'Update Triggered!'
 
 plot_thread = threading.Thread(target=update_plots)
 plot_thread.daemon = True
@@ -181,5 +188,6 @@ def index():
     with latest_plots_lock:
         return render_template('index.html', plots=latest_plots)
 
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
