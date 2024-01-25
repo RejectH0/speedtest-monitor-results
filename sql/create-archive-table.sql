@@ -1,1 +1,0 @@
-CREATE TABLE speedtest_results_archive LIKE speedtest_results;
