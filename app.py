@@ -153,7 +153,7 @@ def update_plots():
         dbs = get_databases()
         for db in dbs:
             if not is_host_enabled():
-			    logging.error(f"Host {db} is currently disabled. Skipping.")
+                logging.error(f"Host {db} is currently disabled. Skipping.")
                 continue
             data = fetch_data(db, start, end)
             if data is not None and not data.empty:
