@@ -8,11 +8,19 @@ delete_old_files() {
 
     echo "Searching for files matching the pattern $pattern in $directory that are older than $age_minutes minutes."
 
+    # Find files matching the pattern
+    local files=$(find "$directory" -name "$pattern" -type f)
+    if [ -z "$files" ]; then
+        echo "No files found with the specified pattern."
+        return
+    fi
+
     # Current date and time in seconds since the epoch
     local current_time=$(date +%s)
 
-    # Iterate over each file matching the pattern
-    find "$directory" -name "$pattern" -type f | while read file; do
+    # Process each file
+    echo "Processing files..."
+    echo "$files" | while read file; do
         echo "Checking file: $file"
 
         # Extract the timestamp from the filename
