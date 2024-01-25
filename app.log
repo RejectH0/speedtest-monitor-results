@@ -71,3 +71,49 @@ ERROR:root:Host kronos_speedtest is currently disabled. Skipping.
 ERROR:root:Host vladimir_speedtest is currently disabled. Skipping.
 INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:09:42] "GET / HTTP/1.1" 200 -
 INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:09:42] "GET /static/images/omsk_speedtest-20240125070757.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:11:05] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:11:05] "GET /static/images/omsk_speedtest-20240125070757.png HTTP/1.1" 200 -
+ERROR:root:Host kronos_speedtest is currently disabled. Skipping.
+ERROR:root:Host vladimir_speedtest is currently disabled. Skipping.
+INFO:werkzeug:10.20.65.81 - - [25/Jan/2024 07:13:10] "[33mGET /trigger-update HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.20.65.70:8080
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+ERROR:root:Host kronos_speedtest is currently disabled. Skipping.
+ERROR:root:Host vladimir_speedtest is currently disabled. Skipping.
+INFO:werkzeug:10.20.65.81 - - [25/Jan/2024 07:14:19] "[33mGET /trigger-update HTTP/1.1[0m" 404 -
+ERROR:root:Host kronos_speedtest is currently disabled. Skipping.
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:14:42] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:14:42] "GET /static/images/omsk_speedtest-20240125071408.png HTTP/1.1" 200 -
+ERROR:root:Host vladimir_speedtest is currently disabled. Skipping.
+INFO:werkzeug:10.20.65.81 - - [25/Jan/2024 07:14:43] "GET /trigger_update HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:31] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:31] "GET /static/images/omsk_speedtest-20240125071442.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:38] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:38] "GET /static/images/omsk_speedtest-20240125071442.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:39] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:39] "GET /static/images/omsk_speedtest-20240125071442.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:40] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:40] "GET /static/images/omsk_speedtest-20240125071442.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:41] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:41] "GET /static/images/omsk_speedtest-20240125071442.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:42] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:42] "GET /static/images/omsk_speedtest-20240125071442.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.81 - - [25/Jan/2024 07:15:49] "GET /trigger_update HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:50] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:50] "GET /static/images/omsk_speedtest-20240125071542.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:50] "GET /static/images/kronos_speedtest-20240125071538.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:50] "GET /static/images/vladimir_speedtest-20240125071545.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:15:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET /static/images/kronos_speedtest-20240125071538.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET /static/images/omsk_speedtest-20240125071542.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET /static/images/vladimir_speedtest-20240125071545.png HTTP/1.1" 200 -
