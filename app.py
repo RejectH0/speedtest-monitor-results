@@ -1,13 +1,16 @@
 ###################################################################
 #
-# Version 1.1 - 20240124-2245
+# Version 1.3 - 20240124-2335
 # This app.py Flask Python application is the monitoring and reporting portion of the speedtest logging utilities
 # Created and maintain by RejectH0. Hotel Coral Essex.
 #
+# 1.3 adds the ability to disable a host through the new 'status' table for each database.
+
 from flask import Flask, render_template, request
 import threading
 import time
 import pymysql
+import logging
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -25,7 +28,7 @@ DB_USER = config['database']['user']
 DB_PASS = config['database']['password']
 
 app = Flask(__name__)
-
+logging.basicConfig(filename='app.log', level=logging.ERROR)
 # Shared resources and their lock
 plot_params = {'start': None, 'end': None}
 plot_params_lock = threading.Lock()
@@ -48,8 +51,21 @@ def get_databases():
         conn.close()
         return [db[0] for db in all_dbs]
     except Exception as e:
-        print(f"Error fetching database list: {e}")
+        logging.error(f"Error fetching database list: {e}")
         return []
+
+def is_host_enabled():
+    try:
+        conn = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, passwd=DB_PASS)
+        cursor = conn.cursor()
+        cursor.execute("SELECT enabled FROM status ORDER BY id DESC LIMIT 1;")
+        result = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        return result[0] if result else False
+    except Exception as e:
+        logging.error(f"Error checking host status: {e}")
+        return False
 
 def fetch_data(db_name, start=None, end=None):
     # Corrected SQL query
@@ -70,7 +86,7 @@ def fetch_data(db_name, start=None, end=None):
         conn.close()
         return data
     except Exception as e:
-        print(f"Error fetching data from database {db_name}: {e}")
+        logging.error(f"Error fetching data from database {db_name}: {e}")
         return None
 
 def plot_data(data, db_name):
@@ -123,7 +139,7 @@ def plot_data(data, db_name):
 
         return filename
     except Exception as e:
-        print(f"Error plotting data for database {db_name}: {e}")
+        logging.error(f"Error plotting data for database {db_name}: {e}")
         return None
 
 
@@ -136,6 +152,9 @@ def update_plots():
         new_plots = []
         dbs = get_databases()
         for db in dbs:
+            if not is_host_enabled():
+			    logging.error(f"Host {db} is currently disabled. Skipping.")
+                continue
             data = fetch_data(db, start, end)
             if data is not None and not data.empty:
                 filename = plot_data(data, db)
