@@ -1,3 +1,9 @@
+###################################################################
+#
+# Version 1.1 - 20240124-2245
+# This app.py Flask Python application is the monitoring and reporting portion of the speedtest logging utilities
+# Created and maintain by RejectH0. Hotel Coral Essex.
+#
 from flask import Flask, render_template, request
 import threading
 import time
@@ -35,11 +41,12 @@ def get_databases():
     try:
         conn = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, passwd=DB_PASS)
         cursor = conn.cursor()
-        cursor.execute("SHOW DATABASES;")
+        query = "SHOW DATABASES LIKE '%\_speedtest';"  # Updated query
+        cursor.execute(query)
         all_dbs = cursor.fetchall()
         cursor.close()
         conn.close()
-        return [db[0] for db in all_dbs if db[0].endswith('_speedtest')]
+        return [db[0] for db in all_dbs]
     except Exception as e:
         print(f"Error fetching database list: {e}")
         return []
