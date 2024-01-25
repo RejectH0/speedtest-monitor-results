@@ -31,22 +31,25 @@ delete_if_old() {
 # Main function
 main() {
     local directory="/usr/local/speedtest-monitor-results/static/images"
-    local pattern="*speedtest[-_][0-9]{14}.png"
+    local pattern_underscore="*speedtest_??????????????.png"
+    local pattern_hyphen="*speedtest-??????????????.png"
     local age_limit=720
 
-    echo "Searching for files matching the pattern $pattern in $directory that are older than $age_limit minutes."
+    echo "Searching for files matching the patterns in $directory that are older than $age_limit minutes."
 
-    find "$directory" -name "$pattern" -type f | while read file; do
-        echo "Checking file: $file"
-        local file_timestamp=$(extract_timestamp "$file")
+    for pattern in "$pattern_underscore" "$pattern_hyphen"; do
+        find "$directory" -name "$pattern" -type f | while read file; do
+            echo "Checking file: $file"
+            local file_timestamp=$(extract_timestamp "$file")
 
-        if [ -z "$file_timestamp" ]; then
-            echo "Skipping file (no timestamp found): $file"
-            continue
-        fi
+            if [ -z "$file_timestamp" ]; then
+                echo "Skipping file (no timestamp found): $file"
+                continue
+            fi
 
-        local file_age=$(calculate_file_age "$file_timestamp")
-        delete_if_old "$file" "$file_age" "$age_limit"
+            local file_age=$(calculate_file_age "$file_timestamp")
+            delete_if_old "$file" "$file_age" "$age_limit"
+        done
     done
 }
 
