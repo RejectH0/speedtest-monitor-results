@@ -275,3 +275,7 @@ INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:26:08] "[36mGET /static/css/style
 INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:26:08] "GET /static/images/kronos_speedtest-20240125082205.png HTTP/1.1" 200 -
 INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:26:08] "GET /static/images/omsk_speedtest-20240125082210.png HTTP/1.1" 200 -
 ERROR:root:Host vladimir_speedtest is currently disabled. Skipping.
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:31:08] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:31:08] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:31:08] "GET /static/images/kronos_speedtest-20240125082712.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 08:31:08] "GET /static/images/omsk_speedtest-20240125082717.png HTTP/1.1" 200 -
