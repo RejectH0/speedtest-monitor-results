@@ -1,6 +1,6 @@
 ###################################################################
 #
-# Version 1.3 - 20240124-2335
+# Version 1.31 - 20240124-2357
 # This app.py Flask Python application is the monitoring and reporting portion of the speedtest logging utilities
 # Created and maintain by RejectH0. Hotel Coral Essex.
 #
@@ -54,9 +54,9 @@ def get_databases():
         logging.error(f"Error fetching database list: {e}")
         return []
 
-def is_host_enabled():
+def is_host_enabled(db_name):
     try:
-        conn = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, passwd=DB_PASS)
+        conn = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, passwd=DB_PASS, db=db_name)
         cursor = conn.cursor()
         cursor.execute("SELECT enabled FROM status ORDER BY id DESC LIMIT 1;")
         result = cursor.fetchone()
@@ -64,7 +64,7 @@ def is_host_enabled():
         conn.close()
         return result[0] if result else False
     except Exception as e:
-        logging.error(f"Error checking host status: {e}")
+        logging.error(f"Error checking host status for {db_name}: {e}")
         return False
 
 def fetch_data(db_name, start=None, end=None):
@@ -152,7 +152,7 @@ def update_plots():
         new_plots = []
         dbs = get_databases()
         for db in dbs:
-            if not is_host_enabled():
+            if not is_host_enabled(db):
                 logging.error(f"Host {db} is currently disabled. Skipping.")
                 continue
             data = fetch_data(db, start, end)
