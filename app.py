@@ -52,7 +52,8 @@ def get_databases():
         return []
 
 def fetch_data(db_name, start=None, end=None):
-    query = "SELECT timestamp, (download / 1024 / 1024) AS download_mbps, (upload / 1024 / 1024) AS upload_mbps FROM speedtest_results"
+    # Corrected SQL query
+    query = "SELECT timestamp, (download / 1000000) AS download_mbps, (upload / 1000000) AS upload_mbps FROM speedtest_results"
 
     if start and end:
         query += " WHERE timestamp BETWEEN %s AND %s"
