@@ -28,7 +28,14 @@ DB_USER = config['database']['user']
 DB_PASS = config['database']['password']
 
 app = Flask(__name__)
-logging.basicConfig(filename='app.log', level=logging.ERROR)
+
+logging.basicConfig(
+    filename='speedtest-m-r.log',
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s:%(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+
 # Shared resources and their lock
 plot_params = {'start': None, 'end': None}
 plot_params_lock = threading.Lock()
