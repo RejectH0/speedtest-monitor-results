@@ -7,8 +7,12 @@
   <title>Speedtest Monitor Results</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+  <style>
+    .plot-image {
+      width: 100%; /* Adjust the width as needed */
+      height: auto;
+    }
+  </style>
 </head>
 <body>
   <header class="bg-light py-3 mb-4">
@@ -18,10 +22,23 @@
   </header>
 
   <main class="container my-5">
+    <!-- Date and Time Filter Form 
+    <form action="/" method="get" class="mb-4">
+      <div class="form-group">
+        <label for="startDateTime">Start Date and Time:</label>
+        <input type="datetime-local" class="form-control" id="startDateTime" name="start" required>
+      </div>
+      <div class="form-group">
+        <label for="endDateTime">End Date and Time:</label>
+        <input type="datetime-local" class="form-control" id="endDateTime" name="end" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form -->
+
     <!-- Plot Display -->
-    <div class="row justify-content-center">
+    <div class="row">
       {% for plot in plots %}
-        <div class="col-lg-auto mb-4 plot-container">
+        <div class="col-lg-6 mb-4">
           <div class="card">
             <a href="{{ url_for('static', filename='images/' ~ plot.filename) }}" target="_blank">
               <img src="{{ url_for('static', filename='images/' ~ plot.filename) }}" class="card-img-top plot-image" alt="{{ plot.caption }}">

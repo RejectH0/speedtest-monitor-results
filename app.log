@@ -117,3 +117,11 @@ INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET / HTTP/1.1" 200 -
 INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET /static/images/kronos_speedtest-20240125071538.png HTTP/1.1" 200 -
 INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET /static/images/omsk_speedtest-20240125071542.png HTTP/1.1" 200 -
 INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:16:06] "GET /static/images/vladimir_speedtest-20240125071545.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:20:50] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:20:50] "GET /static/images/omsk_speedtest-20240125071915.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:20:50] "GET /static/images/kronos_speedtest-20240125071911.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.53 - - [25/Jan/2024 07:20:51] "GET /static/images/vladimir_speedtest-20240125071917.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:21:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:21:06] "GET /static/images/kronos_speedtest-20240125071911.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:21:06] "GET /static/images/omsk_speedtest-20240125071915.png HTTP/1.1" 200 -
+INFO:werkzeug:10.20.65.52 - - [25/Jan/2024 07:21:06] "GET /static/images/vladimir_speedtest-20240125071917.png HTTP/1.1" 200 -
