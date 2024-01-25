@@ -1,57 +1,53 @@
 #!/bin/bash
 
-# Function to delete old files
-delete_old_files() {
-    local directory=$1
-    local pattern=$2
-    local age_minutes=$3
+# Function to extract timestamp from file name
+extract_timestamp() {
+    local file=$1
+    echo "$file" | grep -oP "(?<=speedtest[-_])\d{14}"
+}
 
-    echo "Searching for files matching the pattern $pattern in $directory that are older than $age_minutes minutes."
+# Function to calculate file age in minutes
+calculate_file_age() {
+    local file_timestamp=$1
+    local current_time=$(date +%s)
+    local file_time=$(date -d "${file_timestamp:0:4}-${file_timestamp:4:2}-${file_timestamp:6:2} ${file_timestamp:8:2}:${file_timestamp:10:2}:${file_timestamp:12:2}" +%s)
+    echo $(( (current_time - file_time) / 60 ))
+}
 
-    # Find files matching the pattern and process each one
-    find "$directory" -name "$pattern" -type f -exec bash -c '
-        file="$0"
-        age_minutes="$1"
-        current_time=$(date +%s)
+# Function to delete file if older than specified age
+delete_if_old() {
+    local file=$1
+    local file_age=$2
+    local age_limit=$3
 
-        echo "Checking file: $file"
-
-        # Extract timestamp from filename
-        file_timestamp=$(echo "$file" | grep -oP "(?<=speedtest[-_])\d{14}")
-        if [ -z "$file_timestamp" ]; then
-            echo "Skipping file (no timestamp found): $file"
-            return
-        fi
-
-        # Convert file timestamp to seconds since the epoch
-        file_time=$(date -d "${file_timestamp:0:4}-${file_timestamp:4:2}-${file_timestamp:6:2} ${file_timestamp:8:2}:${file_timestamp:10:2}:${file_timestamp:12:2}" +%s)
-
-        # Calculate age of the file in minutes
-        file_age=$(( (current_time - file_time) / 60 ))
-
-        # Delete file if older than specified age
-        if [ "$file_age" -gt "$age_minutes" ]; then
-            echo "Deleting old file: $file (Age: $file_age minutes)"
-            rm "$file"
-        else
-            echo "File is not old enough to delete: $file (Age: $file_age minutes)"
-        fi
-    ' {} "$age_minutes" \;
+    if [ "$file_age" -gt "$age_limit" ]; then
+        echo "Deleting old file: $file (Age: $file_age minutes)"
+        rm "$file"
+    else
+        echo "File is not old enough to delete: $file (Age: $file_age minutes)"
+    fi
 }
 
 # Main function
 main() {
-    # Directory where the files are located
     local directory="/usr/local/speedtest-monitor-results/static/images"
-
-    # Pattern of the files to be deleted
     local pattern="*speedtest[-_][0-9]{14}.png"
+    local age_limit=720
 
-    # Age in minutes for file deletion (12 hours)
-    local age_minutes=720
+    echo "Searching for files matching the pattern $pattern in $directory that are older than $age_limit minutes."
 
-    delete_old_files "$directory" "$pattern" "$age_minutes"
+    find "$directory" -name "$pattern" -type f | while read file; do
+        echo "Checking file: $file"
+        local file_timestamp=$(extract_timestamp "$file")
+
+        if [ -z "$file_timestamp" ]; then
+            echo "Skipping file (no timestamp found): $file"
+            continue
+        fi
+
+        local file_age=$(calculate_file_age "$file_timestamp")
+        delete_if_old "$file" "$file_age" "$age_limit"
+    done
 }
 
-# Execute main function
 main
